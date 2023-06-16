@@ -1,13 +1,6 @@
 ﻿# Platformer
 
 ## Plan:
-**PT-4: Images**
-- Add resfolder.
-- Implement Resize.
-- Add CleanUp.
-- Import image.
-- Subimages
-
 **PT-5: Animations**
 - Implement animation.
 - Add IndexTicker.
@@ -38,3 +31,10 @@
 - Add Visuals.
 - Implement Thread and Runnable.
 - Implement game loop.
+
+**PT-4: Images**
+- Add resfolder.
+- Implement Resize.
+- Add CleanUp.
+- Import image.
+- Subimages
