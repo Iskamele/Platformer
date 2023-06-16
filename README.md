@@ -1,21 +1,40 @@
 ﻿# Platformer
 
 ## Plan:
-**PT-2:**
-- Repaint game loop
-- Make a fps counter
-- Add visuals
+**PT-4: Images**
+- Add resfolder.
+- Implement Resize.
+- Add CleanUp.
+- Import image.
+- Subimages
 
-**PT-3:**
+**PT-5: Animations**
+- Implement animation.
+- Add IndexTicker.
+- Add constant class.
+- Different Actions & Animations.
 
-**PT-4:**
-
-**PT-5:**
+**PT-6: Game Loop 2.0**
+- FPS vs UPS
+- Implement Update.
 
 ## Completed
-**PT-0**
-- Base for game: JFrame & JPanel
+**PT-1: Start**
+- Add Game Class.
+- Add Window Class, JFrame.
+- Add GamePanel class, JPanel.
+- Add paintComponent and Graphics explained.
 
-**PT-1:**
-- Add inputs and make sure they respond to events on keyboard/mouse
-- Move the rectangle with our new inputs
+**PT-2: Inputs**
+- Add Keyboard Lisner.
+- Add requestFocus.
+- Add Mouse Listener and Mouse Motion Lisner.
+- Add moving the rectangle with inputs.
+- Add moving the rectangle with mouse.
+
+**PT-3: Game Loop**
+- Repaint loop.
+- Add FPS counter.
+- Add Visuals.
+- Implement Thread and Runnable.
+- Implement game loop.
