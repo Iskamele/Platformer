@@ -8,17 +8,11 @@ public class GameWindow {
     public GameWindow(GamePanel gamePanel) {
         jFrame = new JFrame();
 
-        // window frame size
-        jFrame.setSize(400, 400);
-
-        // set window visible
-        jFrame.setVisible(true);
-
-        // add game panel to frame
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.add(gamePanel);
         jFrame.setLocationRelativeTo(null);
-
-        // close app
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setResizable(false);
+        jFrame.pack();
+        jFrame.setVisible(true);
     }
 }
