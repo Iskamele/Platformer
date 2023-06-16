@@ -9,30 +9,60 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import platformer.inputs.KeyBoardInputs;
 import platformer.inputs.MouseInputs;
+import static platformer.utilz.Constants.Directions.DOWN;
+import static platformer.utilz.Constants.Directions.LEFT;
+import static platformer.utilz.Constants.Directions.RIGHT;
+import static platformer.utilz.Constants.Directions.UP;
+import static platformer.utilz.Constants.PlayerConstants.GetSpriteAmount;
+import static platformer.utilz.Constants.PlayerConstants.IDLE;
+import static platformer.utilz.Constants.PlayerConstants.RUNNING;
 
 public class GamePanel extends JPanel {
     private final MouseInputs mouseInputs;
-    private float xDelta = 100;
-    private float yDelta = 100;
+    private float xDelta, yDelta = 100;
     private BufferedImage image;
-    private BufferedImage subImage;
+    private BufferedImage[][] animations;
+    private int animationTick, animationIndex, animationSpeed = 15;
+    private int playerAction = IDLE;
+    private int playerDirection = -1;
+    private boolean moving = false;
 
     public GamePanel() {
         mouseInputs = new MouseInputs(this);
         importImage();
+        loadAnimations();
         setPanelSize();
         addKeyListener(new KeyBoardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
     }
 
+    private void loadAnimations() {
+        animations = new BufferedImage[9][6];
+        for (int j = 0; j < animations.length; j++) {
+            for (int i = 0; i < animations[j].length; i++) {
+                animations[j][i] = image.getSubimage(i * 64, j * 40, 64, 40);
+            }
+        }
+    }
+
     private void importImage() {
         String imagePathName = "/player_sprites.png";
         InputStream is = getClass().getResourceAsStream(imagePathName);
         try {
-            image = ImageIO.read(is);
+            if (is != null) {
+                image = ImageIO.read(is);
+            }
         } catch (IOException e) {
             throw new RuntimeException("Can't import image: " + imagePathName, e);
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Can't close InputStream", e);
+            }
         }
     }
 
@@ -43,22 +73,58 @@ public class GamePanel extends JPanel {
         setMaximumSize(size);
     }
 
-    public void changeXDelta(int value) {
-        this.xDelta += value;
+    public void setDirection(int direction) {
+        this.playerDirection = direction;
+        moving = true;
     }
 
-    public void changeYDelta(int value) {
-        this.yDelta += value;
-    }
-
-    public void setRectPosition(int x, int y) {
-        this.xDelta = x;
-        this.yDelta = y;
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        subImage = image.getSubimage(1 * 64, 8 * 40, 64, 40);
-        g.drawImage(subImage, (int) xDelta, (int) yDelta, 128, 80, null);
+        updateAnimationTick();
+        setAnimation();
+        updatePosition();
+        g.drawImage(animations[playerAction][animationIndex], (int) xDelta, (int) yDelta, 128, 80, null);
+    }
+
+    private void updatePosition() {
+        if (moving) {
+            switch (playerDirection) {
+                case LEFT:
+                    xDelta -= 5;
+                    break;
+                case UP:
+                    yDelta -= 5;
+                    break;
+                case RIGHT:
+                    xDelta += 5;
+                    break;
+                case DOWN:
+                    yDelta += 5;
+                    break;
+            }
+        }
+    }
+
+    private void setAnimation() {
+        if (moving) {
+            playerAction = RUNNING;
+        } else {
+            playerAction = IDLE;
+        }
+    }
+
+    private void updateAnimationTick() {
+        animationTick++;
+        if (animationTick >= animationSpeed) {
+            animationTick = 0;
+            animationIndex++;
+            if (animationIndex >= GetSpriteAmount(playerAction)) {
+                animationIndex = 0;
+            }
+        }
     }
 }

@@ -3,6 +3,10 @@ package platformer.inputs;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import platformer.main.GamePanel;
+import static platformer.utilz.Constants.Directions.DOWN;
+import static platformer.utilz.Constants.Directions.LEFT;
+import static platformer.utilz.Constants.Directions.RIGHT;
+import static platformer.utilz.Constants.Directions.UP;
 
 public class KeyBoardInputs implements KeyListener {
     private GamePanel gamePanel;
@@ -13,28 +17,34 @@ public class KeyBoardInputs implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+                gamePanel.setDirection(UP);
+                break;
+            case KeyEvent.VK_A:
+                gamePanel.setDirection(LEFT);
+                break;
+            case KeyEvent.VK_S:
+                gamePanel.setDirection(DOWN);
+                break;
+            case KeyEvent.VK_D:
+                gamePanel.setDirection(RIGHT);
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                gamePanel.changeYDelta(-5);
-                break;
             case KeyEvent.VK_A:
-                gamePanel.changeXDelta(-5);
-                break;
             case KeyEvent.VK_S:
-                gamePanel.changeYDelta(5);
-                break;
             case KeyEvent.VK_D:
-                gamePanel.changeXDelta(5);
+                gamePanel.setMoving(false);
                 break;
         }
     }
