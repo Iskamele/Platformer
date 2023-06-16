@@ -16,10 +16,9 @@ public class GameWindow {
 
         // add game panel to frame
         jFrame.add(gamePanel);
+        jFrame.setLocationRelativeTo(null);
 
         // close app
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
     }
 }
