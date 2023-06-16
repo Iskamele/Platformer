@@ -1,12 +1,6 @@
 ﻿# Platformer
 
 ## Plan:
-**PT-5: Animations**
-- Implement animation.
-- Add IndexTicker.
-- Add constant class.
-- Different Actions & Animations.
-
 **PT-6: Game Loop 2.0**
 - FPS vs UPS
 - Implement Update.
@@ -38,3 +32,9 @@
 - Add CleanUp.
 - Import image.
 - Subimages
+
+**PT-5: Animations**
+- Implement animation.
+- Add IndexTicker.
+- Add constant class.
+- Implement different actions & animations.
