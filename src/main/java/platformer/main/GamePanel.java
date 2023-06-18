@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 import platformer.inputs.KeyBoardInputs;
 import platformer.inputs.MouseInputs;
+import static platformer.main.Game.GAME_HEIGHT;
+import static platformer.main.Game.GAME_WIDTH;
 
 public class GamePanel extends JPanel {
     private final MouseInputs mouseInputs;
@@ -27,12 +29,12 @@ public class GamePanel extends JPanel {
     public void updateGame() {
     }
 
-    private void setPanelSize() {
-        Dimension size = new Dimension(1280, 720);
-        setPreferredSize(size);
+    public Game getGame() {
+        return game;
     }
 
-    public Game getGame(){
-        return game;
+    private void setPanelSize() {
+        Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+        setPreferredSize(size);
     }
 }

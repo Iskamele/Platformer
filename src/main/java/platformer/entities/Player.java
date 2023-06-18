@@ -2,24 +2,22 @@ package platformer.entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.imageio.ImageIO;
 import static platformer.utilz.Constants.PlayerConstants.ATTACK_1;
 import static platformer.utilz.Constants.PlayerConstants.GetSpriteAmount;
 import static platformer.utilz.Constants.PlayerConstants.IDLE;
 import static platformer.utilz.Constants.PlayerConstants.RUNNING;
+import platformer.utilz.LoadSave;
 
 public class Player extends Entity {
     private BufferedImage[][] animations;
-    private int animationTick, animationIndex, animationSpeed = 15;
+    private int animationTick, animationIndex, animationSpeed = 25;
     private int playerAction = IDLE;
     private boolean moving, attacking = false;
     private boolean left, right, up, down;
     private float playerSpeed = 2.0f;
 
-    public Player(float x, float y) {
-        super(x, y);
+    public Player(float x, float y, int width, int height) {
+        super(x, y, width, height);
         loadAnimations();
     }
 
@@ -30,19 +28,22 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, 128, 80, null);
+        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
     }
 
     private void setAnimation() {
         int startAnimation = playerAction;
+
         if (moving) {
             playerAction = RUNNING;
         } else {
             playerAction = IDLE;
         }
+
         if (attacking) {
             playerAction = ATTACK_1;
         }
+
         if (startAnimation != playerAction) {
             resetAnimationTick();
         }
@@ -67,6 +68,7 @@ public class Player extends Entity {
 
     private void updatePosition() {
         moving = false;
+
         if (left && !right) {
             x -= playerSpeed;
             moving = true;
@@ -117,30 +119,13 @@ public class Player extends Entity {
     }
 
     private void loadAnimations() {
-        String imagePathName = "/player_sprites.png";
-        InputStream is = getClass().getResourceAsStream(imagePathName);
-        try {
-            if (is != null) {
-                BufferedImage image = ImageIO.read(is);
-                animations = new BufferedImage[9][6];
-                for (int j = 0; j < animations.length; j++) {
-                    for (int i = 0; i < animations[j].length; i++) {
-                        animations[j][i] = image.getSubimage(i * 64, j * 40, 64, 40);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Can't import image: " + imagePathName, e);
-        } finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (IOException e) {
-                throw new RuntimeException("Can't close InputStream", e);
+        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
+        animations = new BufferedImage[9][6];
+        for (int j = 0; j < animations.length; j++) {
+            for (int i = 0; i < animations[j].length; i++) {
+                animations[j][i] = image.getSubimage(i * 64, j * 40, 64, 40);
             }
         }
-
     }
 
     public void resetDirectionBooleans() {
@@ -150,7 +135,7 @@ public class Player extends Entity {
         down = false;
     }
 
-    public void setAttacking(boolean attacking){
+    public void setAttacking(boolean attacking) {
         this.attacking = attacking;
     }
 }
