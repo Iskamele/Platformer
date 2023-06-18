@@ -10,7 +10,6 @@ public class Game implements Runnable {
     private Thread gameLoopThread;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
-
     private Player player;
     private LevelHandler levelHandler;
 
@@ -33,8 +32,9 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
-        player = new Player(200, 200, (int) (64 * SCALE), (int) (40 * SCALE));
         levelHandler = new LevelHandler(this);
+        player = new Player(200, 200, (int) (64 * SCALE), (int) (40 * SCALE));
+        player.loadLevelData(levelHandler.getCurrentLevel().getLevelData());
     }
 
     private void starGameLoop() {
