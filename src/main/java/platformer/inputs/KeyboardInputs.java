@@ -3,15 +3,11 @@ package platformer.inputs;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import platformer.main.GamePanel;
-import static platformer.utilz.Constants.Directions.DOWN;
-import static platformer.utilz.Constants.Directions.LEFT;
-import static platformer.utilz.Constants.Directions.RIGHT;
-import static platformer.utilz.Constants.Directions.UP;
 
-public class KeyBoardInputs implements KeyListener {
+public class KeyboardInputs implements KeyListener {
     private GamePanel gamePanel;
 
-    public KeyBoardInputs(GamePanel gamePanel) {
+    public KeyboardInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
 

@@ -3,7 +3,7 @@ package platformer.main;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
-import platformer.inputs.KeyBoardInputs;
+import platformer.inputs.KeyboardInputs;
 import platformer.inputs.MouseInputs;
 import static platformer.main.Game.GAME_HEIGHT;
 import static platformer.main.Game.GAME_WIDTH;
@@ -16,7 +16,7 @@ public class GamePanel extends JPanel {
         mouseInputs = new MouseInputs(this);
         this.game = game;
         setPanelSize();
-        addKeyListener(new KeyBoardInputs(this));
+        addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
     }
