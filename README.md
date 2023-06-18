@@ -2,14 +2,6 @@
 
 ## Plan:
 
-**PT-9: Collision Detection**
-- Level Collision 101
-- Hitbox
-- The LevelData
-- CanMoveHere Method
-- UpdatePosition change
-- Smaller HitBox
-
 **PT-10: Gravity**
 - The variables
 - UpdatePosition change
@@ -70,3 +62,12 @@
 - Level Sprite Array
 - Level Building
 - Getting LevelData
+
+**PT-9: Collision Detection**
+- Level Collision 101
+- Hitbox
+- The LevelData
+- CanMoveHere Method
+- UpdatePosition change
+- Smaller HitBox
+
