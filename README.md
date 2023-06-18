@@ -1,13 +1,6 @@
 ﻿# Platformer
 
 ## Plan:
-**PT-8: Level Creation**
-- Load-Save
-- Final Sizes
-- Level and LevelManager
-- Level Sprite Array
-- Level Building
-- Gettin LevelData
 
 **PT-9: Collision Detection**
 - Level Collision 101
@@ -69,3 +62,11 @@
 - Player class
 - Moving with booleans
 - Attack animation
+
+**PT-8: Level Creation**
+- Load-Save
+- Final Sizes
+- Level and LevelManager
+- Level Sprite Array
+- Level Building
+- Getting LevelData
