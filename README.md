@@ -2,13 +2,9 @@
 
 ## Plan:
 
-**PT-10: Gravity**
-- The variables
-- UpdatePosition change
-- Checking X and Y
-- Jump input
-- Jump animation
-- Start inAir check
+**PT-10.1: Clean up**
+- Add checkstyle.xml.
+- Refactor code.
 
 ## Completed
 
@@ -70,4 +66,12 @@
 - CanMoveHere Method
 - UpdatePosition change
 - Smaller HitBox
+
+**PT-10: Gravity**
+- The variables
+- UpdatePosition change
+- Checking X and Y
+- Jump input
+- Jump animation
+- Start inAir check
 
