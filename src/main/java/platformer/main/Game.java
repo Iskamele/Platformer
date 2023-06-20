@@ -1,8 +1,9 @@
 package platformer.main;
 
 import java.awt.Graphics;
-import platformer.entities.Player;
-import platformer.levels.LevelHandler;
+import platformer.gamestats.GameState;
+import platformer.gamestats.Menu;
+import platformer.gamestats.Playing;
 
 public class Game implements Runnable {
     public static final int TILES_DEFAULT_SIZE = 32;
@@ -19,8 +20,9 @@ public class Game implements Runnable {
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameLoopThread;
-    private Player player;
-    private LevelHandler levelHandler;
+
+    private Playing playing;
+    private Menu menu;
 
     public Game() {
         initClasses();
@@ -33,9 +35,8 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
-        levelHandler = new LevelHandler(this);
-        player = new Player(200, 200, (int) (64 * SCALE), (int) (40 * SCALE));
-        player.loadLevelData(levelHandler.getCurrentLevel().getLevelData());
+        menu = new Menu(this);
+        playing = new Playing(this);
     }
 
     private void starGameLoop() {
@@ -85,21 +86,43 @@ public class Game implements Runnable {
         }
     }
 
-    public Player getPlayer() {
-        return player;
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Playing getPlaying() {
+        return playing;
     }
 
     private void update() {
-        levelHandler.update();
-        player.update();
+        switch (GameState.state) {
+            case MENU:
+                menu.update();
+                break;
+            case PLAYING:
+                playing.update();
+                break;
+            default:
+                break;
+        }
     }
 
     public void render(Graphics g) {
-        levelHandler.draw(g);
-        player.render(g);
+        switch (GameState.state) {
+            case MENU:
+                menu.draw(g);
+                break;
+            case PLAYING:
+                playing.draw(g);
+                break;
+            default:
+                break;
+        }
     }
 
     public void windowFocusLost() {
-        player.resetDirectionBooleans();
+        if (GameState.state == GameState.PLAYING) {
+            playing.getPlayer().resetDirectionBooleans();
+        }
     }
 }
