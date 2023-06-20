@@ -1,10 +1,32 @@
 ﻿# Platformer
 
 ## Plan:
+**PT-11: Gamestates**
+- Adding switches.
+- Statemethods interface.
+- Code-Moving-Day.
+- 
+**PT-12: Menu**
+- The MenuButtons.
+- Implemented menu.
+- Menu background.
+  
+**PT-13: Pause Screen. Part 1**
+- PauseOverlay class.
+- SoundButton.
+- 
+**PT-14:  Pause Screen. Part 2**
+- URM Buttons.
+- VolumeButton.
+- VolumeButtonEvents.
 
-**PT-10.1: Clean up**
-- Add checkstyle.xml.
-- Refactor code.
+**PT-15: Bigger Levels**
+- Explanation
+- LoadSave changes.
+- HelpMethod changes.
+- CheckCloseToBorder.
+- DrawMethod changes.
+- And other fixes.
 
 ## Completed
 
@@ -75,3 +97,6 @@
 - Jump animation
 - Start inAir check
 
+**PT-10.1: Clean Up**
+- Add checkstyle.xml.
+- Refactor code.
