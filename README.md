@@ -1,11 +1,7 @@
 ﻿# Platformer
 
 ## Plan:
-**PT-11: Gamestates**
-- Adding switches.
-- Statemethods interface.
-- Code-Moving-Day.
-- 
+
 **PT-12: Menu**
 - The MenuButtons.
 - Implemented menu.
@@ -14,7 +10,7 @@
 **PT-13: Pause Screen. Part 1**
 - PauseOverlay class.
 - SoundButton.
-- 
+
 **PT-14:  Pause Screen. Part 2**
 - URM Buttons.
 - VolumeButton.
@@ -100,3 +96,8 @@
 **PT-10.1: Clean Up**
 - Add checkstyle.xml.
 - Refactor code.
+
+**PT-11: Gamestates**
+- Statemethods interface.
+- Code-Moving-Day.
+- Keys changes.
