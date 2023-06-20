@@ -4,7 +4,7 @@
 
 **PT-12: Menu**
 - The MenuButtons.
-- Implemented menu.
+- Implement menu.
 - Menu background.
   
 **PT-13: Pause Screen. Part 1**
