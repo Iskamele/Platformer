@@ -5,13 +5,15 @@ import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
 public abstract class Entity {
-    protected float x, y;
-    protected int width, height;
+    protected float xCoordinate;
+    protected float yCoordinate;
+    protected int width;
+    protected int height;
     protected Rectangle2D.Float hitBox;
 
-    public Entity(float x, float y, int width, int height) {
-        this.x = x;
-        this.y = y;
+    public Entity(float xCoordinate, float yCoordinate, int width, int height) {
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
         this.width = width;
         this.height = height;
     }

@@ -5,14 +5,6 @@ import platformer.entities.Player;
 import platformer.levels.LevelHandler;
 
 public class Game implements Runnable {
-    private GameWindow gameWindow;
-    private GamePanel gamePanel;
-    private Thread gameLoopThread;
-    private final int FPS_SET = 120;
-    private final int UPS_SET = 200;
-    private Player player;
-    private LevelHandler levelHandler;
-
     public static final int TILES_DEFAULT_SIZE = 32;
     public static final float SCALE = 2f;
     public static final int TILES_IN_WIDTH = 26;
@@ -20,6 +12,15 @@ public class Game implements Runnable {
     public static final int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
     public static final int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public static final int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
+
+    private static final int FPS_SET = 120;
+    private static final int UPS_SET = 200;
+
+    private GameWindow gameWindow;
+    private GamePanel gamePanel;
+    private Thread gameLoopThread;
+    private Player player;
+    private LevelHandler levelHandler;
 
     public Game() {
         initClasses();

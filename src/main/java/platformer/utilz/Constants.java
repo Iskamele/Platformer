@@ -1,7 +1,7 @@
 package platformer.utilz;
 
 public class Constants {
-    public static class Directions{
+    public static class Directions {
         public static final int LEFT = 0;
         public static final int UP = 1;
         public static final int RIGHT = 2;
@@ -19,8 +19,8 @@ public class Constants {
         public static final int ATTACK_JUMP_1 = 7;
         public static final int ATTACK_JUMP_2 = 8;
 
-        public static int GetSpriteAmount(int player_action) {
-            switch (player_action) {
+        public static int GetSpriteAmount(int playerAction) {
+            switch (playerAction) {
                 case RUNNING:
                     return 6;
                 case IDLE:

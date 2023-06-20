@@ -1,12 +1,13 @@
 package platformer.main;
 
+import static platformer.main.Game.GAME_HEIGHT;
+import static platformer.main.Game.GAME_WIDTH;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import platformer.inputs.KeyboardInputs;
 import platformer.inputs.MouseInputs;
-import static platformer.main.Game.GAME_HEIGHT;
-import static platformer.main.Game.GAME_WIDTH;
 
 public class GamePanel extends JPanel {
     private final MouseInputs mouseInputs;

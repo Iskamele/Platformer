@@ -1,25 +1,38 @@
 package platformer.entities;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import platformer.main.Game;
-import static platformer.utilz.Constants.PlayerConstants.*;
+import static platformer.utilz.Constants.PlayerConstants.ATTACK_1;
+import static platformer.utilz.Constants.PlayerConstants.FALLING;
+import static platformer.utilz.Constants.PlayerConstants.IDLE;
+import static platformer.utilz.Constants.PlayerConstants.JUMP;
+import static platformer.utilz.Constants.PlayerConstants.RUNNING;
+import static platformer.utilz.Constants.PlayerConstants.GetSpriteAmount;
 import static platformer.utilz.HelpMethods.CanMoveHere;
 import static platformer.utilz.HelpMethods.GetEntityXPositionNextToWall;
 import static platformer.utilz.HelpMethods.GetEntityYPositionUnderRoofOrAboveFloor;
 import static platformer.utilz.HelpMethods.IsEntityOnFloor;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import platformer.main.Game;
 import platformer.utilz.LoadSave;
 
 public class Player extends Entity {
     private BufferedImage[][] animations;
-    private int animationTick, animationIndex, animationSpeed = 25;
+    private int animationTick = 25;
+    private int animationIndex = 25;
+    private int animationSpeed = 25;
     private int playerAction = IDLE;
-    private boolean moving, attacking = false;
-    private boolean left, right, up, down, jump;
+    private boolean moving = false;
+    private boolean attacking = false;
+    private boolean left;
+    private boolean right;
+    private boolean up;
+    private boolean down;
+    private boolean jump;
     private float playerSpeed = 2.0f;
     private int[][] levelData;
-    private float xDrawOffset = 21 * Game.SCALE;
-    private float yDrawOffset = 4 * Game.SCALE;
+    private float drawXOffset = 21 * Game.SCALE;
+    private float drawYOffset = 4 * Game.SCALE;
 
     // Jumping / Gravity
     private float airSpeed = 0f;
@@ -41,8 +54,75 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animationIndex], (int) (hitBox.x - xDrawOffset), (int) (hitBox.y - yDrawOffset), width, height, null);
+        g.drawImage(animations[playerAction][animationIndex],
+                (int) (hitBox.x - drawXOffset),
+                (int) (hitBox.y - drawYOffset),
+                width, height, null);
         //drawHitBox(g);
+    }
+
+    public boolean isLeft() {
+        return left;
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
+    }
+
+    public boolean isRight() {
+        return right;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
+    }
+
+    public boolean isUp() {
+        return up;
+    }
+
+    public void setUp(boolean up) {
+        this.up = up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+
+    private void loadAnimations() {
+        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
+        animations = new BufferedImage[9][6];
+        for (int j = 0; j < animations.length; j++) {
+            for (int i = 0; i < animations[j].length; i++) {
+                animations[j][i] = image.getSubimage(i * 64, j * 40, 64, 40);
+            }
+        }
+    }
+
+    public void loadLevelData(int[][] levelData) {
+        this.levelData = levelData;
+        if (!IsEntityOnFloor(hitBox, levelData)) {
+            inAir = true;
+        }
+    }
+
+    public void resetDirectionBooleans() {
+        left = false;
+        right = false;
+        up = false;
+        down = false;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
+    }
+
+    public void setJump(boolean jump) {
+        this.jump = jump;
     }
 
     private void setAnimation() {
@@ -112,7 +192,9 @@ public class Player extends Entity {
         }
 
         if (inAir) {
-            if (CanMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, levelData)) {
+            if (CanMoveHere(hitBox.x, hitBox.y + airSpeed,
+                    hitBox.width, hitBox.height,
+                    levelData)) {
                 hitBox.y += airSpeed;
                 airSpeed += gravity;
                 updateXPosition(xSpeed);
@@ -145,74 +227,14 @@ public class Player extends Entity {
     }
 
     private void updateXPosition(float xSpeed) {
-        if (CanMoveHere(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, levelData)) {
+        if (CanMoveHere(hitBox.x + xSpeed,
+                hitBox.y,
+                hitBox.width,
+                hitBox.height,
+                levelData)) {
             hitBox.x += xSpeed;
         } else {
             hitBox.x = GetEntityXPositionNextToWall(hitBox, xSpeed);
         }
-    }
-
-    public boolean isLeft() {
-        return left;
-    }
-
-    public void setLeft(boolean left) {
-        this.left = left;
-    }
-
-    public boolean isRight() {
-        return right;
-    }
-
-    public void setRight(boolean right) {
-        this.right = right;
-    }
-
-    public boolean isUp() {
-        return up;
-    }
-
-    public void setUp(boolean up) {
-        this.up = up;
-    }
-
-    public boolean isDown() {
-        return down;
-    }
-
-    public void setDown(boolean down) {
-        this.down = down;
-    }
-
-    private void loadAnimations() {
-        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
-        animations = new BufferedImage[9][6];
-        for (int j = 0; j < animations.length; j++) {
-            for (int i = 0; i < animations[j].length; i++) {
-                animations[j][i] = image.getSubimage(i * 64, j * 40, 64, 40);
-            }
-        }
-    }
-
-    public void loadLevelData(int[][] levelData) {
-        this.levelData = levelData;
-        if (!IsEntityOnFloor(hitBox, levelData)) {
-            inAir = true;
-        }
-    }
-
-    public void resetDirectionBooleans() {
-        left = false;
-        right = false;
-        up = false;
-        down = false;
-    }
-
-    public void setAttacking(boolean attacking) {
-        this.attacking = attacking;
-    }
-
-    public void setJump(boolean jump) {
-        this.jump = jump;
     }
 }
