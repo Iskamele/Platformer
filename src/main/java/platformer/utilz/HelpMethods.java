@@ -4,7 +4,9 @@ import java.awt.geom.Rectangle2D;
 import platformer.main.Game;
 
 public class HelpMethods {
-    public static boolean CanMoveHere(float x, float y, float width, float height, int[][] levelData) {
+    public static boolean CanMoveHere(float x, float y,
+                                      float width, float height,
+                                      int[][] levelData) {
         if (!IsSolid(x, y, levelData)) {
             if (!IsSolid(x + width, y + height, levelData)) {
                 if (!IsSolid(x + width, y, levelData)) {
@@ -32,26 +34,27 @@ public class HelpMethods {
         return value >= 48 || value < 0 || value != 11;
     }
 
-    public static float GetEntityXPositionNextToWall(Rectangle2D.Float hitBox, float xSpeed) {
+    public static float GetEntityXPositionNextToWall(Rectangle2D.Float hitBox, float speedX) {
         int currentTile = (int) (hitBox.x / Game.TILES_SIZE);
-        if (xSpeed > 0) {
+        if (speedX > 0) {
             // Right
             int tilePosition = currentTile * Game.TILES_SIZE;
-            int xOffset = (int) (Game.TILES_SIZE - hitBox.width);
-            return tilePosition + xOffset - 1;
+            int offsetX = (int) (Game.TILES_SIZE - hitBox.width);
+            return tilePosition + offsetX - 1;
         } else {
             // Left
             return currentTile * Game.TILES_SIZE;
         }
     }
 
-    public static float GetEntityYPositionUnderRoofOrAboveFloor(Rectangle2D.Float hitBox, float airSpeed) {
+    public static float GetEntityYPositionUnderRoofOrAboveFloor(Rectangle2D.Float hitBox,
+                                                                float airSpeed) {
         int currentTile = (int) (hitBox.y / Game.TILES_SIZE);
         if (airSpeed > 0) {
             // Falling - touching floor
             int tileYPosition = currentTile * Game.TILES_SIZE;
-            int yOffset = (int) (Game.TILES_SIZE - hitBox.height);
-            return tileYPosition + yOffset - 1;
+            int offsetY = (int) (Game.TILES_SIZE - hitBox.height);
+            return tileYPosition + offsetY - 1;
         } else {
             // Jumping
             return currentTile * Game.TILES_SIZE;
