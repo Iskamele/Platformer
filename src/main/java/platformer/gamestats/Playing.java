@@ -6,10 +6,13 @@ import java.awt.event.MouseEvent;
 import platformer.entities.Player;
 import platformer.levels.LevelHandler;
 import platformer.main.Game;
+import platformer.ui.PauseOverlay;
 
 public class Playing extends State implements StateMethods {
     private Player player;
     private LevelHandler levelHandler;
+    private PauseOverlay pauseOverlay;
+    private boolean paused = true;
 
     public Playing(Game game) {
         super(game);
@@ -20,6 +23,7 @@ public class Playing extends State implements StateMethods {
         levelHandler = new LevelHandler(game);
         player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
         player.loadLevelData(levelHandler.getCurrentLevel().getLevelData());
+        pauseOverlay = new PauseOverlay();
     }
 
     public Player getPlayer() {
@@ -34,12 +38,14 @@ public class Playing extends State implements StateMethods {
     public void update() {
         levelHandler.update();
         player.update();
+        pauseOverlay.update();
     }
 
     @Override
     public void draw(Graphics g) {
         levelHandler.draw(g);
         player.render(g);
+        pauseOverlay.draw(g);
     }
 
     @Override
@@ -51,17 +57,23 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (paused) {
+            pauseOverlay.mousePressed(e);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if (paused) {
+            pauseOverlay.mouseReleased(e);
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        if (paused) {
+            pauseOverlay.mouseMoved(e);
+        }
     }
 
     @Override
