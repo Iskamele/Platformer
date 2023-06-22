@@ -2,10 +2,6 @@
 
 ## Plan:
 
-**PT-13: Pause Screen. Part 1**
-- PauseOverlay class.
-- SoundButton.
-
 **PT-14:  Pause Screen. Part 2**
 - URM Buttons.
 - VolumeButton.
@@ -101,3 +97,7 @@
 - The MenuButtons.
 - Implement menu.
 - Menu background.
+
+**PT-13: Pause Screen. Part 1**
+- PauseOverlay class.
+- SoundButton.
