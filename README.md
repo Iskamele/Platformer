@@ -2,11 +2,6 @@
 
 ## Plan:
 
-**PT-12: Menu**
-- The MenuButtons.
-- Implement menu.
-- Menu background.
-  
 **PT-13: Pause Screen. Part 1**
 - PauseOverlay class.
 - SoundButton.
@@ -101,3 +96,8 @@
 - Statemethods interface.
 - Code-Moving-Day.
 - Keys changes.
+
+**PT-12: Menu**
+- The MenuButtons.
+- Implement menu.
+- Menu background.
