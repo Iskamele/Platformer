@@ -75,8 +75,10 @@ public class Playing extends State implements StateMethods {
                 break;
             case KeyEvent.VK_SPACE:
                 player.setJump(true);
+                break;
             case KeyEvent.VK_BACK_SPACE:
                 GameState.state = GameState.MENU;
+                break;
         }
     }
 
@@ -91,6 +93,7 @@ public class Playing extends State implements StateMethods {
                 break;
             case KeyEvent.VK_SPACE:
                 player.setJump(false);
+                break;
         }
     }
 }

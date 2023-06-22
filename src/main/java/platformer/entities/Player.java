@@ -1,19 +1,13 @@
 package platformer.entities;
 
-import static platformer.utilz.Constants.PlayerConstants.ATTACK_1;
-import static platformer.utilz.Constants.PlayerConstants.FALLING;
-import static platformer.utilz.Constants.PlayerConstants.IDLE;
-import static platformer.utilz.Constants.PlayerConstants.JUMP;
-import static platformer.utilz.Constants.PlayerConstants.RUNNING;
-import static platformer.utilz.Constants.PlayerConstants.GetSpriteAmount;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import platformer.main.Game;
+import static platformer.utilz.Constants.PlayerConstants.*;
 import static platformer.utilz.HelpMethods.CanMoveHere;
 import static platformer.utilz.HelpMethods.GetEntityXPositionNextToWall;
 import static platformer.utilz.HelpMethods.GetEntityYPositionUnderRoofOrAboveFloor;
 import static platformer.utilz.HelpMethods.IsEntityOnFloor;
-
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import platformer.main.Game;
 import platformer.utilz.LoadSave;
 
 public class Player extends Entity {
@@ -29,7 +23,7 @@ public class Player extends Entity {
     private boolean up;
     private boolean down;
     private boolean jump;
-    private float playerSpeed = 2.0f;
+    private float playerSpeed = 1.0f * Game.SCALE;
     private int[][] levelData;
     private float drawXOffset = 21 * Game.SCALE;
     private float drawYOffset = 4 * Game.SCALE;
@@ -44,7 +38,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initHitBox(x, y, 20 * Game.SCALE, 27 * Game.SCALE);
+        initHitBox(x, y, (int) (20 * Game.SCALE), (int) (27 * Game.SCALE));
     }
 
     public void update() {
