@@ -3,6 +3,7 @@
 ## Plan:
 
 **PT-14:  Pause Screen. Part 2**
+- Fix mouse overlay for sound buttons.
 - URM Buttons.
 - VolumeButton.
 - VolumeButtonEvents.
