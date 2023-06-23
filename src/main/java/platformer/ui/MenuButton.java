@@ -1,21 +1,22 @@
 package platformer.ui;
 
+import static platformer.utilz.Constants.UI.Buttons.B_HEIGHT;
+import static platformer.utilz.Constants.UI.Buttons.B_HEIGHT_DEFAULT;
+import static platformer.utilz.Constants.UI.Buttons.B_WIDTH;
+import static platformer.utilz.Constants.UI.Buttons.B_WIDTH_DEFAULT;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import platformer.gamestats.GameState;
-import static platformer.utilz.Constants.Buttons.B_HEIGHT;
-import static platformer.utilz.Constants.Buttons.B_HEIGHT_DEFAULT;
-import static platformer.utilz.Constants.Buttons.B_WIDTH;
-import static platformer.utilz.Constants.Buttons.B_WIDTH_DEFAULT;
 import platformer.utilz.LoadSave;
 
-public class MenuButton {
-    private final int xOffsetCenter = B_WIDTH / 2;
+public class MenuButton implements DrawAndUpdate {
     private int xPosition;
     private int yPosition;
     private int rowIndex;
     private int index;
+    private int xOffsetCenter = B_WIDTH / 2;
     private GameState state;
     private BufferedImage[] images;
     private boolean mouseOver;
@@ -29,6 +30,43 @@ public class MenuButton {
         this.state = state;
         loadImages();
         initBounds();
+    }
+
+    private void initBounds() {
+        bounds = new Rectangle(xPosition - xOffsetCenter, yPosition, B_WIDTH, B_HEIGHT);
+
+    }
+
+    private void loadImages() {
+        images = new BufferedImage[3];
+        BufferedImage temp = LoadSave.getSpriteAtlas(LoadSave.MENU_BUTTONS);
+        for (int i = 0; i < images.length; i++) {
+            images[i] = temp.getSubimage(i * B_WIDTH_DEFAULT,
+                    rowIndex * B_HEIGHT_DEFAULT,
+                    B_WIDTH_DEFAULT,
+                    B_HEIGHT_DEFAULT);
+        }
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        g.drawImage(images[index],
+                xPosition - xOffsetCenter,
+                yPosition,
+                B_WIDTH,
+                B_HEIGHT,
+                null);
+    }
+
+    @Override
+    public void update() {
+        index = 0;
+        if (mouseOver) {
+            index = 1;
+        }
+        if (mousePressed) {
+            index = 2;
+        }
     }
 
     public boolean isMouseOver() {
@@ -47,38 +85,8 @@ public class MenuButton {
         this.mousePressed = mousePressed;
     }
 
-    private void initBounds() {
-        bounds = new Rectangle(xPosition - xOffsetCenter, yPosition, B_WIDTH, B_HEIGHT);
-    }
-
-    private void loadImages() {
-        images = new BufferedImage[3];
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.MENU_BUTTONS);
-        for (int i = 0; i < images.length; i++) {
-            images[i] = temp.getSubimage(i * B_WIDTH_DEFAULT,
-                    rowIndex * B_HEIGHT_DEFAULT,
-                    B_WIDTH_DEFAULT,
-                    B_HEIGHT_DEFAULT);
-        }
-    }
-
-    public void draw(Graphics g) {
-        g.drawImage(images[index],
-                xPosition - xOffsetCenter,
-                yPosition,
-                B_WIDTH,
-                B_HEIGHT,
-                null);
-    }
-
-    public void update() {
-        index = 0;
-        if (mouseOver) {
-            index = 1;
-        }
-        if (mousePressed) {
-            index = 2;
-        }
+    public Rectangle getBounds() {
+        return bounds;
     }
 
     public void applyGameState() {
@@ -90,11 +98,4 @@ public class MenuButton {
         mousePressed = false;
     }
 
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
-    public void setBounds(Rectangle bounds) {
-        this.bounds = bounds;
-    }
 }

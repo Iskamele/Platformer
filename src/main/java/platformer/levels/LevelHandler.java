@@ -13,11 +13,11 @@ public class LevelHandler {
     public LevelHandler(Game game) {
         this.game = game;
         importOutsideSprites();
-        levelOne = new Level(LoadSave.GetLevelData());
+        levelOne = new Level(LoadSave.getLevelData());
     }
 
     private void importOutsideSprites() {
-        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS);
+        BufferedImage image = LoadSave.getSpriteAtlas(LoadSave.LEVEL_ATLAS);
         levelSprite = new BufferedImage[48];
         for (int j = 0; j < 4; j++) {
             for (int i = 0; i < 12; i++) {

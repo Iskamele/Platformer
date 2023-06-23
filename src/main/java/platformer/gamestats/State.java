@@ -15,7 +15,7 @@ public class State {
         return game;
     }
 
-    public boolean isIm(MouseEvent e, MenuButton menuButton) {
+    public boolean isIn(MouseEvent e, MenuButton menuButton) {
         return menuButton.getBounds().contains(e.getX(), e.getY());
     }
 }
