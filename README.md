@@ -3,7 +3,6 @@
 ## Plan:
 
 **PT-14: Bigger Levels**
-- Explanation
 - LoadSave changes.
 - HelpMethod changes.
 - CheckCloseToBorder.
