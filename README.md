@@ -2,13 +2,7 @@
 
 ## Plan:
 
-**PT-14:  Pause Screen. Part 2**
-- Fix mouse overlay for sound buttons.
-- URM Buttons.
-- VolumeButton.
-- VolumeButtonEvents.
-
-**PT-15: Bigger Levels**
+**PT-14: Bigger Levels**
 - Explanation
 - LoadSave changes.
 - HelpMethod changes.
@@ -102,3 +96,9 @@
 **PT-13: Pause Screen. Part 1**
 - PauseOverlay class.
 - SoundButton.
+
+**PT-13:  Pause Screen. Part 2**
+- Fix mouse overlay for sound buttons.
+- URM Buttons.
+- VolumeButton.
+- VolumeButtonEvents.
