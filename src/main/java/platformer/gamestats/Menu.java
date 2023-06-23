@@ -24,7 +24,7 @@ public class Menu extends State implements StateMethods {
     }
 
     private void loadBackground() {
-        backgroundImage = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND);
+        backgroundImage = LoadSave.getSpriteAtlas(LoadSave.MENU_BACKGROUND);
         menuWidth = (int) (backgroundImage.getWidth() * Game.SCALE);
         menuHeight = (int) (backgroundImage.getHeight() * Game.SCALE);
         menuX = Game.GAME_WIDTH / 2 - menuWidth / 2;
@@ -32,9 +32,12 @@ public class Menu extends State implements StateMethods {
     }
 
     private void loadButtons() {
-        buttons[0] = new MenuButton(Game.GAME_WIDTH / 2, (int) (150 * Game.SCALE), 0, GameState.PLAYING);
-        buttons[1] = new MenuButton(Game.GAME_WIDTH / 2, (int) (220 * Game.SCALE), 1, GameState.OPTIONS);
-        buttons[2] = new MenuButton(Game.GAME_WIDTH / 2, (int) (290 * Game.SCALE), 2, GameState.QUIT);
+        buttons[0] = new MenuButton(Game.GAME_WIDTH / 2,
+                (int) (150 * Game.SCALE), 0, GameState.PLAYING);
+        buttons[1] = new MenuButton(Game.GAME_WIDTH / 2,
+                (int) (220 * Game.SCALE), 1, GameState.OPTIONS);
+        buttons[2] = new MenuButton(Game.GAME_WIDTH / 2,
+                (int) (290 * Game.SCALE), 2, GameState.QUIT);
     }
 
     @Override
@@ -60,7 +63,7 @@ public class Menu extends State implements StateMethods {
     @Override
     public void mousePressed(MouseEvent e) {
         for (MenuButton menuButton : buttons) {
-            if (isIm(e, menuButton)) {
+            if (isIn(e, menuButton)) {
                 menuButton.setMousePressed(true);
                 break;
             }
@@ -70,7 +73,7 @@ public class Menu extends State implements StateMethods {
     @Override
     public void mouseReleased(MouseEvent e) {
         for (MenuButton menuButton : buttons) {
-            if (isIm(e, menuButton)) {
+            if (isIn(e, menuButton)) {
                 if (menuButton.isMousePressed()) {
                     menuButton.applyGameState();
                 }
@@ -92,7 +95,7 @@ public class Menu extends State implements StateMethods {
             menuButton.setMouseOver(false);
         }
         for (MenuButton menuButton : buttons) {
-            if (isIm(e, menuButton)) {
+            if (isIn(e, menuButton)) {
                 menuButton.setMouseOver(true);
                 break;
             }

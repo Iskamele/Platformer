@@ -1,11 +1,13 @@
 package platformer.ui;
 
+import static platformer.utilz.Constants.UI.PauseButtons.SOUND_DEFAULT_SIZE;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import static platformer.utilz.Constants.PauseButtons.SOUND_SIZE_DEFAULT;
 import platformer.utilz.LoadSave;
 
-public class SoundButton extends PauseButton {
+public class SoundButton extends PauseButton implements DrawAndUpdate {
+
     private BufferedImage[][] soundImages;
     private boolean mouseOver;
     private boolean mousePressed;
@@ -15,22 +17,25 @@ public class SoundButton extends PauseButton {
 
     public SoundButton(int x, int y, int width, int height) {
         super(x, y, width, height);
+
         loadSoundImages();
     }
 
     private void loadSoundImages() {
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SOUND_BUTTONS);
+        BufferedImage temp = LoadSave.getSpriteAtlas(LoadSave.SOUND_BUTTONS);
         soundImages = new BufferedImage[2][3];
         for (int j = 0; j < soundImages.length; j++) {
             for (int i = 0; i < soundImages[j].length; i++) {
-                soundImages[j][i] = temp.getSubimage(i * SOUND_SIZE_DEFAULT,
-                        j * SOUND_SIZE_DEFAULT,
-                        SOUND_SIZE_DEFAULT,
-                        SOUND_SIZE_DEFAULT);
+                soundImages[j][i] = temp.getSubimage(
+                        i * SOUND_DEFAULT_SIZE,
+                        j * SOUND_DEFAULT_SIZE,
+                        SOUND_DEFAULT_SIZE,
+                        SOUND_DEFAULT_SIZE);
             }
         }
     }
 
+    @Override
     public void update() {
         if (muted) {
             rowIndex = 1;
@@ -44,15 +49,17 @@ public class SoundButton extends PauseButton {
         if (mousePressed) {
             columnIndex = 2;
         }
+
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        g.drawImage(soundImages[rowIndex][columnIndex], x, y, width, height, null);
     }
 
     public void resetBooleans() {
         mouseOver = false;
         mousePressed = false;
-    }
-
-    public void draw(Graphics g) {
-        g.drawImage(soundImages[rowIndex][columnIndex], x, y, width, height, null);
     }
 
     public boolean isMouseOver() {
@@ -78,4 +85,5 @@ public class SoundButton extends PauseButton {
     public void setMuted(boolean muted) {
         this.muted = muted;
     }
+
 }

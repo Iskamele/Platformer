@@ -1,13 +1,14 @@
 package platformer.entities;
 
+import static platformer.utilz.Constants.PlayerConstants.*;
+import static platformer.utilz.HelpMethods.canMoveHere;
+import static platformer.utilz.HelpMethods.getEntityXPositionNextToWall;
+import static platformer.utilz.HelpMethods.getEntityYPositionUnderRoofOrAboveFloor;
+import static platformer.utilz.HelpMethods.isEntityOnFloor;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import platformer.main.Game;
-import static platformer.utilz.Constants.PlayerConstants.*;
-import static platformer.utilz.HelpMethods.CanMoveHere;
-import static platformer.utilz.HelpMethods.GetEntityXPositionNextToWall;
-import static platformer.utilz.HelpMethods.GetEntityYPositionUnderRoofOrAboveFloor;
-import static platformer.utilz.HelpMethods.IsEntityOnFloor;
 import platformer.utilz.LoadSave;
 
 public class Player extends Entity {
@@ -88,7 +89,7 @@ public class Player extends Entity {
     }
 
     private void loadAnimations() {
-        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
+        BufferedImage image = LoadSave.getSpriteAtlas(LoadSave.PLAYER_ATLAS);
         animations = new BufferedImage[9][6];
         for (int j = 0; j < animations.length; j++) {
             for (int i = 0; i < animations[j].length; i++) {
@@ -99,7 +100,7 @@ public class Player extends Entity {
 
     public void loadLevelData(int[][] levelData) {
         this.levelData = levelData;
-        if (!IsEntityOnFloor(hitBox, levelData)) {
+        if (!isEntityOnFloor(hitBox, levelData)) {
             inAir = true;
         }
     }
@@ -121,13 +122,11 @@ public class Player extends Entity {
 
     private void setAnimation() {
         int startAnimation = playerAction;
-
         if (moving) {
             playerAction = RUNNING;
         } else {
             playerAction = IDLE;
         }
-
         if (inAir) {
             if (airSpeed < 0) {
                 playerAction = JUMP;
@@ -135,11 +134,9 @@ public class Player extends Entity {
                 playerAction = FALLING;
             }
         }
-
         if (attacking) {
             playerAction = ATTACK_1;
         }
-
         if (startAnimation != playerAction) {
             resetAnimationTick();
         }
@@ -155,7 +152,7 @@ public class Player extends Entity {
         if (animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
-            if (animationIndex >= GetSpriteAmount(playerAction)) {
+            if (animationIndex >= getSpriteAmount(playerAction)) {
                 animationIndex = 0;
                 attacking = false;
             }
@@ -171,29 +168,27 @@ public class Player extends Entity {
             return;
         }
         float xSpeed = 0;
-
         if (left) {
             xSpeed -= playerSpeed;
         }
         if (right) {
             xSpeed += playerSpeed;
         }
-
         if (!inAir) {
-            if (!IsEntityOnFloor(hitBox, levelData)) {
+            if (!isEntityOnFloor(hitBox, levelData)) {
                 inAir = true;
             }
         }
 
         if (inAir) {
-            if (CanMoveHere(hitBox.x, hitBox.y + airSpeed,
+            if (canMoveHere(hitBox.x, hitBox.y + airSpeed,
                     hitBox.width, hitBox.height,
                     levelData)) {
                 hitBox.y += airSpeed;
                 airSpeed += gravity;
                 updateXPosition(xSpeed);
             } else {
-                hitBox.y = GetEntityYPositionUnderRoofOrAboveFloor(hitBox, airSpeed);
+                hitBox.y = getEntityYPositionUnderRoofOrAboveFloor(hitBox, airSpeed);
                 if (airSpeed > 0) {
                     resetInAir();
                 } else {
@@ -221,14 +216,14 @@ public class Player extends Entity {
     }
 
     private void updateXPosition(float xSpeed) {
-        if (CanMoveHere(hitBox.x + xSpeed,
+        if (canMoveHere(hitBox.x + xSpeed,
                 hitBox.y,
                 hitBox.width,
                 hitBox.height,
                 levelData)) {
             hitBox.x += xSpeed;
         } else {
-            hitBox.x = GetEntityXPositionNextToWall(hitBox, xSpeed);
+            hitBox.x = getEntityXPositionNextToWall(hitBox, xSpeed);
         }
     }
 }
