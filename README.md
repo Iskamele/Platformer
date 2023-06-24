@@ -1,13 +1,68 @@
 ﻿# Platformer
 
 ## Plan:
+**PT-15: Background Moves:**
+- Implement background image.
+- Clouds.
+- Cloud movement.
 
-**PT-14: Bigger Levels**
-- LoadSave changes.
-- HelpMethod changes.
-- CheckCloseToBorder.
-- DrawMethod changes.
-- And other fixes.
+**PT-16: Enemies. Part 1:**
+- Implement Enemy Class.
+- Add new constants.
+- Enemy Manager/Handler.
+- 
+
+**PT-16: Enemies. Part 2:**
+- HitBox.
+- DrawOffsets.
+- UpdateMove.
+- Falling.
+- Patrol.
+
+**PT-16: Enemies. Part 3:**
+- Moving the switch.
+- NewStance.
+- CanSeePlayer.
+- isPlayerInRange (Visual Range).
+- IsSightClear.
+- Turn TowardsPlayer.
+- IsPlayerCloseForAttack.
+- AnimationTick change.
+- Edge check fix.
+
+**PT-16: Enemies. Part 4:**
+- Status Bar.
+- Status Bar: HealthBar.
+- Status Bar: ChangeHealth.
+- Player AttackBar.
+- New PlayerAtlas.
+- Image Flip Player.
+- Image Flip Enemy.
+- Enemy AttackBox.
+- GameOverOverlay Class.
+- CombatSystem: Enemy Heath & Enemy Damage.
+- CombatSystem: CheckEnemyHit.
+- CombatSystem: Animation Ends.
+- CombatSystem: The Active Boolean.
+- CombatSystem: Attack Checked.
+- CombatSystem: FasterAttack.
+- GameOver: Loop.
+- GameOver: ResetAll.
+
+**PT-17: Multiple Levels:**
+- LevelCompleted Overlay.
+- LevelCompleted Overlay: InputEvents.
+- GetAllLevels.
+- LevelClass.
+- LevelManagerClass.
+- Player Spawn.
+- Edit the levels.
+
+**PT-18: **
+- 
+
+**PT-19: **
+- 
 
 ## Completed
 
@@ -101,3 +156,10 @@
 - URM Buttons.
 - VolumeButton.
 - VolumeButtonEvents.
+
+**PT-14: Bigger Levels**
+- LoadSave changes.
+- HelpMethod changes.
+- CheckCloseToBorder.
+- DrawMethod changes.
+- And other fixes.
