@@ -1,5 +1,6 @@
 package platformer.gamestats;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -7,12 +8,19 @@ import platformer.entities.Player;
 import platformer.levels.LevelHandler;
 import platformer.main.Game;
 import platformer.ui.PauseOverlay;
+import platformer.utilz.LoadSave;
 
 public class Playing extends State implements StateMethods {
     private Player player;
     private LevelHandler levelHandler;
     private PauseOverlay pauseOverlay;
     private boolean paused = false;
+    private int xLevelOffset;
+    private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
+    private int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
+    private int levelTilesWide = LoadSave.getLevelData()[0].length;
+    private int maxTilesOffset = levelTilesWide - Game.TILES_IN_WIDTH;
+    private int maxLevelOffset = maxTilesOffset * Game.TILES_SIZE;
 
     public Playing(Game game) {
         super(game);
@@ -39,16 +47,34 @@ public class Playing extends State implements StateMethods {
         if (!paused) {
             levelHandler.update();
             player.update();
+            checkCloseToBorder();
         } else {
             pauseOverlay.update();
         }
     }
 
+    private void checkCloseToBorder() {
+        int playerX = (int) player.getHitBox().x;
+        int diff = playerX - xLevelOffset;
+        if (diff > rightBorder) {
+            xLevelOffset += diff - rightBorder;
+        } else if (diff < leftBorder) {
+            xLevelOffset += diff - leftBorder;
+        }
+        if (xLevelOffset > maxLevelOffset) {
+            xLevelOffset = maxLevelOffset;
+        } else if (xLevelOffset < 0) {
+            xLevelOffset = 0;
+        }
+    }
+
     @Override
     public void draw(Graphics g) {
-        levelHandler.draw(g);
-        player.render(g);
+        levelHandler.draw(g, xLevelOffset);
+        player.render(g, xLevelOffset);
         if (paused) {
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
             pauseOverlay.draw(g);
         }
     }
