@@ -1,11 +1,6 @@
 ﻿# Platformer
 
 ## Plan:
-**PT-15: Background Moves:**
-- Implement background image.
-- Clouds.
-- Cloud movement.
-
 **PT-16: Enemies. Part 1:**
 - Implement Enemy Class.
 - Add new constants.
@@ -163,3 +158,8 @@
 - CheckCloseToBorder.
 - DrawMethod changes.
 - And other fixes.
+
+**PT-15: Background Moves:**
+- Implement background image.
+- Clouds.
+- Cloud movement.
