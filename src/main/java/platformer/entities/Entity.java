@@ -22,7 +22,6 @@ public abstract class Entity {
         // For debugging the hitBox
         g.setColor(Color.MAGENTA);
         g.drawRect((int) hitBox.x, (int) hitBox.y, (int) hitBox.width, (int) hitBox.height);
-
     }
 
     protected void initHitBox(float x, float y, int width, int height) {
